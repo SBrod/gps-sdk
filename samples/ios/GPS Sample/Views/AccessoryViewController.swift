@@ -4,17 +4,18 @@
  
  Abstract:
  View controller that shows the MFi detected accessory information (i.e. model, serial number and firmware revision)
+ Swift 4.2
  */
 
 import UIKit
 
 class AccessoryViewController: UITableViewController {
-    
+
     let sessionController = SessionController.sharedController
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         title = sessionController._accessory?.modelNumber
     }
 
@@ -25,20 +26,20 @@ class AccessoryViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("AccessoryCell", forIndexPath: indexPath)
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccessoryCell", for: indexPath)
 
         // Configure the cell...
-        
-        switch indexPath.row {
+
+        switch (indexPath as NSIndexPath).row {
         case 0:
             cell.textLabel?.text = "Name"
             cell.detailTextLabel?.text = sessionController._accessory?.name
@@ -54,7 +55,7 @@ class AccessoryViewController: UITableViewController {
         case 4:
             cell.textLabel?.text = "Firmware"
             cell.detailTextLabel?.text = sessionController._accessory?.firmwareRevision
-            
+
         default:
             cell.textLabel?.text = ""
             cell.detailTextLabel?.text = ""
